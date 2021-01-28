@@ -2,6 +2,7 @@ import './App.css';
 
 import Header from './components/Header/Header';
 import Layout from './components/Layout/Layout';
+import Footer from './components/Footer/Footer';
 
 import Bg1 from './assets/bg1.jpg';
 import Bg2 from './assets/bg2.jpg';
@@ -14,6 +15,7 @@ function App() {
       <Layout urlBg={Bg1}/>
       <Layout colorBg='red'/>
       <Layout urlBg={Bg2}/>
+      <Footer />
     </>
   );
 }
