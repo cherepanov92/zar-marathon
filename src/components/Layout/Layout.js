@@ -5,18 +5,18 @@ const Layout = ({id, title, descr, urlBg, colorBg}) => {
   return (
     <section className={`${style.root}`} id={ id }>
       <div 
-        className="wrapper" 
+        className={`${style.wrapper}`} 
         style={{
           backgroundImage: urlBg ? `url(${urlBg})`: null,
           backgroundColor: colorBg ? colorBg: null
         }}
       >
         <article>
-          <div className="title">
+          <div className={`${style.title}`}>
             <h3>{ title }</h3>
-            <span className="separator"></span>
+            <span className={`${style.separator}`}></span>
           </div>
-          <div className={`descr full`}>
+          <div className={`${style.descr} ${style.full}`}>
             <p>{ descr }</p>
           </div>
         </article>

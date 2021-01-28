@@ -12,9 +12,9 @@ function App() {
   return (
     <>
       <Header title='title' descr='descr'/>
-      <Layout urlBg={Bg1}/>
-      <Layout colorBg='red'/>
-      <Layout urlBg={Bg2}/>
+      <Layout id='1' title='title 1' descr='deskr 1' urlBg={Bg1}/>
+      <Layout id='2' title='title 2' descr='deskr 2' colorBg='red'/>
+      <Layout id='3' title='title 3' descr='deskr 3' urlBg={Bg2}/>
       <Footer />
     </>
   );
