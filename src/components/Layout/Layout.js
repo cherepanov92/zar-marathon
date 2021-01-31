@@ -8,7 +8,9 @@ const Layout = ({id, title, urlBg, colorBg, children}) => {
         className={`${style.wrapper}`} 
         style={{
           backgroundImage: urlBg ? `url(${urlBg})`: null,
-          backgroundColor: colorBg ? colorBg: null
+          backgroundColor: colorBg ? colorBg: null,
+          backgroundRepeat: "repeat-x",
+          backgroundPosition: "bottom",
         }}
       >
         <div className={`${style.title}`}>
