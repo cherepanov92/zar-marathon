@@ -4,6 +4,7 @@ import PokemonDB from '../../db';
 import PokemonCard from '../../components/PokemonCard/PokemonCard';
 import style from './style.module.css';
 
+import MenuHeader from '../../components/MenuHeader';
 import Header from '../../components/Header/Header';
 import Layout from '../../components/Layout/Layout';
 import Footer from '../../components/Footer/Footer';
@@ -19,6 +20,7 @@ function HomePage({ onChangePage }) {
 
   return (
     <>
+      <MenuHeader />
       <Header title='Pokemon game' onClickButton={onClickButton}> 
         <p>Марафон по реакту от "<a className={cn(style['mentor-link'])} href="https://t.me/frontend_mentor">Zar</a>"</p>
       </Header>
