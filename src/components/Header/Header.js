@@ -1,4 +1,6 @@
 import React from 'react';
+import cn from 'classnames';
+
 import style from './style.module.css';
 
 const Header = ({ title, onClickButton, children }) => {
@@ -8,9 +10,9 @@ const Header = ({ title, onClickButton, children }) => {
   }
 
   return (
-    <header className={`${style.root}`}>
-      <div className={`${style.forest}`} />
-      <div className={`${style.container}`}>
+    <header className={cn(style.root)}>
+      <div className={cn(style.forest)} />
+      <div className={cn(style.container)}>
         <h1>{title}</h1>
         {children}
         <button onClick={handleClick}>
