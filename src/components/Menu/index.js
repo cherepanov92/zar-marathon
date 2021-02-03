@@ -2,6 +2,25 @@ import cn from 'classnames';
 
 import style from './style.module.css';
 
+const MENU = [
+  {
+    title: "HOME",
+    to: "#welcome"
+  },
+  {
+    title: "GAME",
+    to: "#game"
+  },
+  {
+    title: "ABOUT",
+    to: "#about"
+  },
+  {
+    title: "CONTACT",
+    to: "#contact"
+  },
+]
+
 const Menu = ({ isActiveMenu }) => {
   return (
     <div className={cn(
@@ -12,26 +31,13 @@ const Menu = ({ isActiveMenu }) => {
       <div className={cn(style.overlay)} />
       <div className={cn(style.menuItems)}>
         <ul>
-          <li>
-            <a href="#welcome">
-              HOME
-            </a>
-          </li>
-          <li>
-            <a href="#game">
-              GAME
-            </a>
-          </li>
-          <li>
-            <a href="#about">
-              ABOUT
-            </a>
-          </li>
-          <li>
-            <a href="#contact">
-              CONTACT
-            </a>
-          </li>
+          {MENU.map(({to, title}, index) => (
+            <li key={index}>
+              <a href={to}>
+                {title}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

@@ -9,11 +9,11 @@ const NavBar = ({ isActiveMenu, toggleMenuActive }) => {
         <p className={cn(style.brand)}>
           LOGO
         </p>
-        <a 
+        <div 
           className={cn(style.menuButton, {[style.active]:isActiveMenu, [style.deactive]:!isActiveMenu })}
           onClick={() => {toggleMenuActive()}}>
           <span />
-        </a>
+        </div>
       </div>
     </nav>
   )
