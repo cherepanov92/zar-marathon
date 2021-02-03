@@ -4,9 +4,9 @@ import Menu from '../Menu';
 import NavBar from '../NavBar';
 
 const MenuHeader  = () => {
-  const [isActiveMenu, setActiveMenu] = useState(false)
+  const [isActiveMenu, setActiveMenu] = useState(null)
   const handleToggleMenuActive = () => {
-    setActiveMenu(!isActiveMenu);
+    setActiveMenu(prevState => !prevState);
   }
 
   return (
