@@ -10,7 +10,9 @@ const NavBar = ({ isActiveMenu, toggleMenuActive }) => {
           LOGO
         </p>
         <div 
-          className={cn(style.menuButton, {[style.active]:isActiveMenu, [style.deactive]:!isActiveMenu })}
+          className={cn(style.menuButton, {
+            [style.active]:isActiveMenu === true, 
+            [style.deactive]:isActiveMenu === false })}
           onClick={() => {toggleMenuActive()}}>
           <span />
         </div>
