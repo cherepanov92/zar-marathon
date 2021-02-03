@@ -3,11 +3,7 @@ import cn from 'classnames';
 
 import style from './style.module.css';
 
-const Header = ({ title, onClickButton, children }) => {
-
-  const handleClick = () => {
-    onClickButton && onClickButton('game');
-  }
+const Header = ({ title, children }) => {
 
   return (
     <header className={cn(style.root)}>
@@ -15,9 +11,6 @@ const Header = ({ title, onClickButton, children }) => {
       <div className={cn(style.container)}>
         <h1>{title}</h1>
         {children}
-        <button onClick={handleClick}>
-            Start game
-        </button>
       </div>
     </header>
   )

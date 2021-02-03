@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Menu from '../Menu';
 import NavBar from '../NavBar';
 
-const MenuHeader  = () => {
+const MenuHeader  = ({ bgActive }) => {
   const [isActiveMenu, setActiveMenu] = useState(null)
   const handleToggleMenuActive = () => {
     setActiveMenu(prevState => !prevState);
@@ -12,7 +12,7 @@ const MenuHeader  = () => {
   return (
     <>
       <Menu isActiveMenu={isActiveMenu} />
-      <NavBar isActiveMenu={isActiveMenu} toggleMenuActive={handleToggleMenuActive} />
+      <NavBar isActiveMenu={isActiveMenu} bgActive={bgActive} toggleMenuActive={handleToggleMenuActive} />
     </>
   )
 }
