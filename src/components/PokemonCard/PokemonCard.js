@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import cn from 'classnames';
+
 import style from './style.module.css';
 import cardBacked from '../../assets/cards/back-side.jpg';
 
@@ -10,39 +12,39 @@ const PokemonCard = ({id, name, type, img, values}) => {
   }
 
   return ( 
-    <div className={`${style.roots}`}>
-      <div onClick={onClick} className={`${style.pokemonCard} ${isActive && style.active}`}>
-        <div className={`${style.cardFront}`}>
-          <div className={`${style.wrap} ${style.front}`}>
-            <div className={`${style.pokemon} ${style[type]}`}>
+    <div className={cn(style.roots)}>
+      <div onClick={onClick} className={cn(style.pokemonCard, {[style.active]: isActive})}>
+        <div className={cn(style.cardFront)}>
+          <div className={cn(style.wrap, style.front)}>
+            <div className={cn(style.pokemon, style[type])}>
 
-              <div className={`${style.values}`}>
-                <div className={`${style.count} ${style.top}`}>
+              <div className={cn(style.values)}>
+                <div className={cn(style.count, style.top)}>
                   {values.top}
                 </div>
-                <div className={`${style.count} ${style.right}`}>
+                <div className={cn(style.count, style.right)}>
                   {values.right}
                 </div>
-                <div className={`${style.count} ${style.bottom}`}>
+                <div className={cn(style.count, style.bottom)}>
                   {values.bottom}
                 </div>
-                <div className={`${style.count} ${style.left}`}>
+                <div className={cn(style.count, style.left)}>
                   {values.left}
                 </div>
               </div>
 
-              <div className={`${style.imgContainer}`}>
+              <div className={cn(style.imgContainer)}>
                   <img src={img} alt={name} />
               </div>
 
-              <div className={`${style.info}`}>
-                <span className={`${style.number}`}>
+              <div className={cn(style.info)}>
+                <span className={cn(style.number)}>
                   {id}
                 </span>
-                <h3 className={`${style.name}`}>
+                <h3 className={cn(style.name)}>
                   {name}
                 </h3>
-                <small className={`${style.type}`}>
+                <small className={cn(style.type)}>
                   Type: <span>{type}</span>
                 </small>
               </div>
@@ -51,8 +53,8 @@ const PokemonCard = ({id, name, type, img, values}) => {
           </div>
         </div>
 
-        <div className={`${style.cardBack}`}>
-          <div className={`${style.wrap} ${style.back}`}>
+        <div className={cn(style.cardBack)}>
+          <div className={cn(style.wrap, style.back)}>
             <img src={cardBacked} alt="Сard Backed" />
           </div>
         </div>

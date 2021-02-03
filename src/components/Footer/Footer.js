@@ -1,11 +1,13 @@
 import React from 'react';
+import cn from 'classnames';
+
 import style from './style.module.css';
 
-const Footer = (props) => {
+const Footer = () => {
   return (
     <footer>
-      <div className={`${style.wrapper}`}>
-        <h3>THANKS FOR VISITING</h3>
+      <div className={cn(style.wrapper)}>
+        <p>Черепанов Артём</p>
         <p>© 2021 #ReactMarathon.</p>
       </div>
     </footer>
