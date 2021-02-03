@@ -14,15 +14,16 @@ import Bg2 from '../../assets/bg2.jpg';
 import Bg3 from '../../assets/bg3.jpg';
 
 function HomePage({ onChangePage }) {
-  const onClickButton = (page) => {
-    onChangePage && onChangePage(page);
+  const handleClick = (page) => {
+    onChangePage && onChangePage("game");
   }
 
   return (
     <>
       <MenuHeader />
-      <Header title='Pokemon game' onClickButton={onClickButton}> 
+      <Header title='Pokemon game'> 
         <p>Марафон по реакту от "<a className={cn(style['mentor-link'])} href="https://t.me/frontend_mentor">Zar</a>"</p>
+        <button onClick={handleClick}>Go to Game</button>      
       </Header>
       {/* <Layout 
         id='1' 

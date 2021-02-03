@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 
 import MenuHeader from '../../components/MenuHeader';
-import Layout from '../../components/Layout/Layout';
+import Header from '../../components/Header/Header';
 
 const GamePage = ({ onChangePage }) => {
   const handleClick = () => {
@@ -10,16 +10,10 @@ const GamePage = ({ onChangePage }) => {
 
   return (
     <Fragment>
-      <MenuHeader />
-      <Layout 
-        id='1' 
-        title='This is game page !!!' 
-        colorBg='#84CB55'
-      >
-        <div>
-          <button onClick={handleClick}>Go to Homepage</button>
-        </div>
-      </Layout>
+      <MenuHeader bgActive />
+      <Header title='This is game page !!!'> 
+        <button onClick={handleClick}>Go to Homepage</button>      
+      </Header>
     </Fragment>
 
   );
