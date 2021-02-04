@@ -1,21 +1,21 @@
+import { useHistory } from 'react-router-dom';
 import cn from 'classnames';
 
 import PokemonDB from '../../db';
 import PokemonCard from '../../components/PokemonCard/PokemonCard';
 import style from './style.module.css';
 
-import MenuHeader from '../../components/MenuHeader';
 import Header from '../../components/Header/Header';
 import Layout from '../../components/Layout/Layout';
-import Footer from '../../components/Footer/Footer';
 
 import Bg1 from '../../assets/bg1.jpg';
 import Bg2 from '../../assets/bg2.jpg';
 import Bg3 from '../../assets/bg3.jpg';
 
-function HomePage({ onChangePage }) {
-  const handleClick = (page) => {
-    onChangePage && onChangePage("game");
+function HomePage() {
+  const history = useHistory();
+  const handleClick = () => {
+    history.push("/game");
   }
 
   return (

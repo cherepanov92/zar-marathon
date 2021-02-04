@@ -1,11 +1,11 @@
-import { Fragment } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import MenuHeader from '../../components/MenuHeader';
 import Header from '../../components/Header/Header';
 
-const GamePage = ({ onChangePage }) => {
+const GamePage = () => {
+  const history = useHistory();
   const handleClick = () => {
-    onChangePage && onChangePage('home');
+    history.push('/home');
   }
 
   return (
