@@ -11,7 +11,7 @@ const MenuHeader  = ({ bgActive }) => {
 
   return (
     <>
-      <Menu isActiveMenu={isActiveMenu} />
+      <Menu isActiveMenu={isActiveMenu} toggleMenuActive={handleToggleMenuActive} />
       <NavBar isActiveMenu={isActiveMenu} bgActive={bgActive} toggleMenuActive={handleToggleMenuActive} />
     </>
   )

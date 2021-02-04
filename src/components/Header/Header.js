@@ -1,10 +1,8 @@
-import React from 'react';
 import cn from 'classnames';
 
 import style from './style.module.css';
 
 const Header = ({ title, children }) => {
-
   return (
     <header className={cn(style.root)}>
       <div className={cn(style.forest)} />
