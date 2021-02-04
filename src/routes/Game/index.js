@@ -9,13 +9,9 @@ const GamePage = ({ onChangePage }) => {
   }
 
   return (
-    <Fragment>
-      <MenuHeader bgActive />
       <Header title='This is game page !!!'> 
         <button onClick={handleClick}>Go to Homepage</button>      
       </Header>
-    </Fragment>
-
   );
 };
 

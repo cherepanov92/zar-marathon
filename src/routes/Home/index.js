@@ -20,7 +20,6 @@ function HomePage({ onChangePage }) {
 
   return (
     <>
-      <MenuHeader />
       <Header title='Pokemon game'> 
         <p>Марафон по реакту от "<a className={cn(style['mentor-link'])} href="https://t.me/frontend_mentor">Zar</a>"</p>
         <button onClick={handleClick}>Go to Game</button>      
@@ -70,7 +69,6 @@ function HomePage({ onChangePage }) {
             карта противника будет захвачена и заменена на цвет игрока.
           </p>
       </Layout>
-      <Footer />
     </>
   );
 }
