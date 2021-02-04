@@ -1,10 +1,14 @@
 import { Route, Switch, useRouteMatch, Redirect } from 'react-router-dom';
 import cn from 'classnames';
 
-import HomePage from './routes/Home';
-import GamePage from './routes/Game';
 import MenuHeader from './components/MenuHeader';
 import Footer from './components/Footer/Footer';
+
+import AboutPage from './routes/About';
+import ContactPage from './routes/Contact';
+import GamePage from './routes/Game';
+import HomePage from './routes/Home';
+import NotFoundPage from './routes/NotFound';
 
 import style from './style.module.css';
 
@@ -13,24 +17,20 @@ const App = () => {
 
   return (
     <Switch>
-      <Route path="/404" render={() => (
-        <h1> 404 page not found! </h1>
-      )} />
+      <Route path="/404" component={NotFoundPage} />
       <Route>
         <>
           <MenuHeader bgActive={!match || !match.isExact}/>
           <div className={cn(style.wrap, {[style.isHomePage]: match && match.isExact})}>
             <Switch>
-              <Route 
-                path="/" 
-                exact 
+              <Route path="/" exact 
                 render={() => (<Redirect to="/home" />)} 
               />
-              <Route path="/home" component={HomePage} />
+              <Route path="/about" component={AboutPage} />
+              <Route path="/contact" component={ContactPage} />
               <Route path="/game" component={GamePage} />
-              <Route path="/about" render={() => (
-                <h1> This is page about! </h1>
-              )} />
+              <Route path="/home" component={HomePage} />
+
               <Route render={() => (
                 <Redirect to="/404" />
               )} />
