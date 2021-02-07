@@ -17,16 +17,9 @@ const GamePage = () => {
   const handleClick = () => history.push('/home');
 
   const handleActivateCard = (card_id) => {
-    const activateCard = cardState.findIndex(card_obj => (card_obj.id === card_id));
-    const newCardState = cardState;
-
-    if ('isActive' in newCardState[activateCard]) {
-      newCardState[activateCard]['isActive'] = !newCardState[activateCard]['isActive'];
-    } else {
-      newCardState[activateCard]['isActive'] = true;
-    }
-    
-    setCardState([...newCardState])
+    setCardState(cardState => 
+      cardState.map(item => item.id === card_id ? { ...item, isActive: 'isActive' in item ? !item.isActive : true} : item )
+    )
   }
 
   return (
