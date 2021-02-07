@@ -1,13 +1,12 @@
-import { useState } from 'react';
 import cn from 'classnames';
 
 import style from './style.module.css';
 import cardBacked from '../../assets/cards/back-side.jpg';
 
-const PokemonCard = ({id, name, type, img, values, handleActivateCard, isActive = false}) => {
+const PokemonCard = ({card_key, id, name, type, img, values, handleActivateCard, isActive = false}) => {
 
   const onClick = () => {
-    handleActivateCard(id);
+    handleActivateCard(card_key);
   }
 
   return ( 
