@@ -35,6 +35,41 @@ const GamePage = () => {
     }))
   }
 
+  const handleAddPikachuCard = () => { 
+    const new_card = {
+      "abilities" : [ "static", "lightning-rod" ],
+      "base_experience" : 112,
+      "height" : 4,
+      "id" : 25,
+      "img" : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
+      "name" : "pikachu",
+      "stats" : {
+        "attack" : 55,
+        "defense" : 40,
+        "hp" : 35,
+        "special-attack" : 50,
+        "special-defense" : 50,
+        "speed" : 90
+      },
+      "type" : "electric",
+      "values" : {
+        "bottom" : 9,
+        "left" : 6,
+        "right" : "A",
+        "top" : 8
+      }
+    }
+    const newCardHach = Math.random().toString(36).substring(7)
+
+    database.ref(`pokemons/${newCardHach}`)
+    .set(new_card)
+    .then(setCardState(prevState => {
+      const newState = prevState;
+      newState[newCardHach] = new_card;
+      return {...newState}
+    }))
+  }
+
   return (
     <>
       <Header title='This is game page !!!'> 
@@ -46,6 +81,7 @@ const GamePage = () => {
         colorBg='#74E1FF'
         urlBg={Bg3}
       >
+        <button onClick={handleAddPikachuCard}>Добавить Пикачу</button>
         <div className={cn(style.flex)}>
           {
             Object.entries(cardState).map(([key, {name, img, id, type, values, active}]) =>
