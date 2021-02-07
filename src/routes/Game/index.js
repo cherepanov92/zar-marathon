@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import cn from 'classnames';
 
-import PokemonDB from '../../db';
+import database from '../../service/firebase';
 import Bg3 from '../../assets/bg3.jpg';
 
 import Header from '../../components/Header/Header';

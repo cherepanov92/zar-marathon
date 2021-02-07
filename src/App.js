@@ -11,11 +11,6 @@ import GamePage from './routes/Game';
 import HomePage from './routes/Home';
 import NotFoundPage from './routes/NotFound';
 
-import database from './service/firebase';
-
-// database.ref('pokemons').once('value', (snapshot) => {
-//   console.log('db data', snapshot.val());
-// })
 
 const App = () => {
   const match = useRouteMatch('/home');
