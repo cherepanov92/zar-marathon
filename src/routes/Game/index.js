@@ -59,13 +59,14 @@ const GamePage = () => {
         "top" : 8
       }
     }
-    const newCardHach = Math.random().toString(36).substring(7)
 
-    database.ref(`pokemons/${newCardHach}`)
+    const newKey = database.ref().child('pokemons').push().key;
+
+    database.ref(`pokemons/${newKey}`)
     .set(new_card)
     .then(setCardState(prevState => {
       const newState = prevState;
-      newState[newCardHach] = new_card;
+      newState[newKey] = new_card;
       return {...newState}
     }))
   }
