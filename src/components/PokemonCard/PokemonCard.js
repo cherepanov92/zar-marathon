@@ -4,16 +4,15 @@ import cn from 'classnames';
 import style from './style.module.css';
 import cardBacked from '../../assets/cards/back-side.jpg';
 
-const PokemonCard = ({id, name, type, img, values}) => {
+const PokemonCard = ({id, name, type, img, values, handleActivateCard, isActive = false}) => {
 
-  const [isActive, setActive] = useState(false);
   const onClick = () => {
-    setActive(!isActive);
+    handleActivateCard(id);
   }
 
   return ( 
     <div className={cn(style.roots)}>
-      <div onClick={onClick} className={cn(style.pokemonCard, {[style.active]: isActive})}>
+      <div onClick={onClick} className={cn(style.pokemonCard, {[style.active]: isActive === true})}>
         <div className={cn(style.cardFront)}>
           <div className={cn(style.wrap, style.front)}>
             <div className={cn(style.pokemon, style[type])}>

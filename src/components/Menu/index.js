@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
 import style from './style.module.css';
@@ -5,23 +6,26 @@ import style from './style.module.css';
 const MENU = [
   {
     title: "HOME",
-    to: "#welcome"
+    to: "/"
   },
   {
     title: "GAME",
-    to: "#game"
+    to: "/game"
   },
   {
     title: "ABOUT",
-    to: "#about"
+    to: "/about"
   },
   {
     title: "CONTACT",
-    to: "#contact"
+    to: "/contact"
   },
 ]
 
-const Menu = ({ isActiveMenu }) => {
+const Menu = ({ isActiveMenu, toggleMenuActive }) => {
+  const handleClick = () => {
+    toggleMenuActive(null)
+  }
   return (
     <div className={cn(
         style.menuContainer, {
@@ -33,9 +37,12 @@ const Menu = ({ isActiveMenu }) => {
         <ul>
           {MENU.map(({to, title}, index) => (
             <li key={index}>
-              <a href={to}>
+              <Link 
+                to={to}
+                onClick={handleClick}
+              >
                 {title}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
