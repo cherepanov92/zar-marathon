@@ -27,16 +27,21 @@ const StartPage = () => {
     getPokemons();
   }, []);
 
-  const handleActivateCard = (card_key) => { 
-    const update_card = {...cardState[card_key], active: 'active' in cardState[card_key] ? !cardState[card_key].active : true }
+  const handleActivateCard = (id) => { 
+    // todo: разобрать
+    setCardState(prevState => {
+      return Object.entries(prevState).reduce((acc, item) => {
+        const pokemon = {...item[1]};
+        if (pokemon.id === id) {
+          pokemon.active = !pokemon.active;
+        }
 
-    database.ref(`pokemons/${card_key}`)
-    .set(update_card)
-    .then(setCardState(prevState => {
-      const newState = prevState;
-      newState[card_key] = update_card;
-      return {...newState}
-    }))
+        acc[item[0]] = pokemon;
+        firebase.postPokemon(item[0], pokemon);
+
+        return acc;
+      }, {});
+    })
   }
 
   const handleAddPikachuCard = () => { 
