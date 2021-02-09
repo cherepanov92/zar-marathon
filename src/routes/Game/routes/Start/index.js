@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import cn from 'classnames';
 
@@ -10,17 +10,21 @@ import Layout from '../../../../components/Layout/Layout';
 import PokemonCard from '../../../../components/PokemonCard/PokemonCard';
 
 import style from './style.module.css';
+import { FirebaseContext } from '../../../../context/firebaseContext';
 
 const StartPage = () => {
+  const firebase = useContext(FirebaseContext);
   const [cardState, setCardState] = useState({});
   const history = useHistory();
   const handleClick = () => history.push('/home');
 
+  const getPokemons = async () => {
+    const responce = await firebase.getPokemonsOnce();
+    setCardState(responce);
+  }
+
   useEffect(() => {
-    database.ref('pokemons')
-    .once('value', (snapshot) => {
-      setCardState(snapshot.val());
-    })
+    getPokemons();
   }, []);
 
   const handleActivateCard = (card_key) => { 
@@ -40,9 +44,9 @@ const StartPage = () => {
       "abilities" : [ "static", "lightning-rod" ],
       "base_experience" : 112,
       "height" : 4,
-      "id" : 25,
+      "id" : 1125,
       "img" : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-      "name" : "pikachu",
+      "name" : "pika-pikachu",
       "stats" : {
         "attack" : 55,
         "defense" : 40,
@@ -60,15 +64,9 @@ const StartPage = () => {
       }
     }
 
-    const newKey = database.ref().child('pokemons').push().key;
-
-    database.ref(`pokemons/${newKey}`)
-    .set(new_card)
-    .then(setCardState(prevState => {
-      const newState = prevState;
-      newState[newKey] = new_card;
-      return {...newState}
-    }))
+    firebase.addPokemon(new_card, async () => {
+      await getPokemons();
+    });
   }
 
   return (
@@ -88,7 +86,6 @@ const StartPage = () => {
             Object.entries(cardState).map(([key, {name, img, id, type, values, active}]) =>
             <PokemonCard 
               key={key} 
-              card_key={key} 
               id={id}
               name={name}
               type={type}

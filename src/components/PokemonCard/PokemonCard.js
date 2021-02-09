@@ -2,10 +2,10 @@ import cn from 'classnames';
 
 import style from './style.module.css';
 
-const PokemonCard = ({card_key, id, name, type, img, values, handleActivateCard, minimize, className, isActive = false}) => {
+const PokemonCard = ({id, name, type, img, values, handleActivateCard, minimize, className, isActive = false}) => {
 
   const onClick = () => {
-    handleActivateCard(card_key);
+    handleActivateCard(id);
   }
 
   return ( 
