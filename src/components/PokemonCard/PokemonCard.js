@@ -1,9 +1,8 @@
 import cn from 'classnames';
 
 import style from './style.module.css';
-import cardBacked from '../../assets/cards/back-side.jpg';
 
-const PokemonCard = ({card_key, id, name, type, img, values, handleActivateCard, isActive = false}) => {
+const PokemonCard = ({card_key, id, name, type, img, values, handleActivateCard, minimize, className, isActive = false}) => {
 
   const onClick = () => {
     handleActivateCard(card_key);
@@ -11,7 +10,7 @@ const PokemonCard = ({card_key, id, name, type, img, values, handleActivateCard,
 
   return ( 
     <div className={cn(style.roots)}>
-      <div onClick={onClick} className={cn(style.pokemonCard, {[style.active]: isActive === true})}>
+      <div onClick={onClick} className={cn(className, style.pokemonCard, {[style.active]: isActive === true})}>
         <div className={cn(style.cardFront)}>
           <div className={cn(style.wrap, style.front)}>
             <div className={cn(style.pokemon, style[type])}>
@@ -35,7 +34,7 @@ const PokemonCard = ({card_key, id, name, type, img, values, handleActivateCard,
                   <img src={img} alt={name} />
               </div>
 
-              <div className={cn(style.info)}>
+              { !minimize && (<div className={cn(style.info)}>
                 <span className={cn(style.number)}>
                   {id}
                 </span>
@@ -45,20 +44,18 @@ const PokemonCard = ({card_key, id, name, type, img, values, handleActivateCard,
                 <small className={cn(style.type)}>
                   Type: <span>{type}</span>
                 </small>
-              </div>
+              </div>) }
 
             </div>
           </div>
         </div>
 
         <div className={cn(style.cardBack)}>
-          <div className={cn(style.wrap, style.back)}>
-            <img src={cardBacked} alt="Сard Backed" />
-          </div>
+          <div className={cn(style.wrap, style.back)} />
         </div>
 
       </div>
-  </div>
+    </div> 
   )
 }
 
