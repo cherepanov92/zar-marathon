@@ -1,16 +1,16 @@
 import { Route, Switch, useRouteMatch, Redirect } from 'react-router-dom';
 import cn from 'classnames';
 
+import style from './style.module.css';
+
 import MenuHeader from './components/MenuHeader';
 import Footer from './components/Footer/Footer';
-
 import AboutPage from './routes/About';
 import ContactPage from './routes/Contact';
 import GamePage from './routes/Game';
 import HomePage from './routes/Home';
 import NotFoundPage from './routes/NotFound';
 
-import style from './style.module.css';
 
 const App = () => {
   const match = useRouteMatch('/home');
