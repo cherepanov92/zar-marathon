@@ -13,7 +13,9 @@ const firebaseConfig = {
 
 class Firebase {
   constructor() {
-    firebase.initializeApp(firebaseConfig);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
 
     this.fire = firebase;
     this.database = this.fire.database();
