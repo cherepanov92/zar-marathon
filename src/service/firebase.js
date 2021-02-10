@@ -19,6 +19,15 @@ class Firebase {
     this.database = this.fire.database();
   }
 
+  // Получение/обновление данных по сокету (при любом изменении данных)
+  getPokemonsSoket = (cb) => {
+    this.database.ref('pokemons')
+    .on('value' , (snapshot) => {
+      cb(snapshot.val());
+    })
+  }
+
+  // Единоразовый запрос данных
   getPokemonsOnce = async () => {
     return await this.database.ref('pokemons')
     .once('value')
@@ -29,12 +38,11 @@ class Firebase {
     this.database.ref(`pokemons/${key}`).set(pokemon);
   }
 
-  addPokemon = (new_card, cb) => {
+  addPokemon = (new_card) => {
     const newKey = this.database.ref().child('pokemons').push().key;
 
     this.database.ref(`pokemons/${newKey}`)
     .set(new_card)
-    .then(() => cb());
   }
 }
 

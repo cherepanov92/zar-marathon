@@ -18,13 +18,8 @@ const StartPage = () => {
   const history = useHistory();
   const handleClick = () => history.push('/home');
 
-  const getPokemons = async () => {
-    const responce = await firebase.getPokemonsOnce();
-    setCardState(responce);
-  }
-
   useEffect(() => {
-    getPokemons();
+    firebase.getPokemonsSoket((cards) => {setCardState(cards)})
   }, []);
 
   const handleActivateCard = (id) => { 
@@ -69,9 +64,7 @@ const StartPage = () => {
       }
     }
 
-    firebase.addPokemon(new_card, async () => {
-      await getPokemons();
-    });
+    firebase.addPokemon(new_card);
   }
 
   return (
