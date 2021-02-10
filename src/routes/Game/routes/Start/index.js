@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import cn from 'classnames';
 
-import database from '../../../../service/firebase';
 import Bg3 from '../../../../assets/bg3.jpg';
 
 import Header from '../../../../components/Header/Header';
@@ -11,12 +10,16 @@ import PokemonCard from '../../../../components/PokemonCard/PokemonCard';
 
 import style from './style.module.css';
 import { FirebaseContext } from '../../../../context/firebaseContext';
+import { PokemonContext } from '../../../../context/pokemonContext';
+
 
 const StartPage = () => {
   const firebase = useContext(FirebaseContext);
+  const selectedCard = useContext(PokemonContext);
   const [cardState, setCardState] = useState({});
   const history = useHistory();
-  const handleClick = () => history.push('/home');
+  const handleClickHome = () => history.push('/home');
+  const handleClickStartGame = () => history.push('/game/board');
 
   useEffect(() => {
     firebase.getPokemonsSoket((cards) => {setCardState(cards)})
@@ -29,6 +32,10 @@ const StartPage = () => {
         const pokemon = {...item[1]};
         if (pokemon.id === id) {
           pokemon.active = !pokemon.active;
+          pokemon.isSelected = !pokemon.isSelected;
+
+          // Добавляю карточки в выбранные
+          selectedCard.setPokemon([...selectedCard.pokemon, pokemon])
         }
 
         acc[item[0]] = pokemon;
@@ -70,7 +77,7 @@ const StartPage = () => {
   return (
     <>
       <Header title='This is game page !!!'> 
-        <button onClick={handleClick}>Go to Homepage</button>      
+        <button onClick={handleClickHome}>Go to Homepage</button>      
       </Header>
       <Layout 
         id='1' 
@@ -79,9 +86,10 @@ const StartPage = () => {
         urlBg={Bg3}
       >
         <button onClick={handleAddPikachuCard}>Добавить Пикачу</button>
+        <button onClick={handleClickStartGame}>Start game</button>
         <div className={cn(style.flex)}>
           {
-            Object.entries(cardState).map(([key, {name, img, id, type, values, active}]) =>
+            Object.entries(cardState).map(([key, {name, img, id, type, values, active, isSelected}]) =>
             <PokemonCard 
               key={key} 
               id={id}
@@ -91,6 +99,7 @@ const StartPage = () => {
               values={values} 
               handleActivateCard={handleActivateCard}
               isActive={active}
+              isSelected={isSelected}
             />)
           }
         </div>
