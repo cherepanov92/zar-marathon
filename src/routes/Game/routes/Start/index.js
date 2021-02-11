@@ -30,6 +30,9 @@ const StartPage = () => {
   }, []);
 
   const handleChangeSelected = (key) => { 
+    const pokemon = {...cardState[key]};
+    selectedCard.onSelectedPokemons(key, pokemon);
+
     setCardState(prevState => ({
       ...prevState,
       [key]: {
@@ -37,8 +40,6 @@ const StartPage = () => {
         selected: !prevState[key].selected
       }
     }))
-
-
   }
 
   return (
