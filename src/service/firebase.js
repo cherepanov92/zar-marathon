@@ -11,12 +11,10 @@ const firebaseConfig = {
   appId: "1:636593100078:web:36e9eb132b5fb5fd2fd6bf"
 };
 
+firebase.initializeApp(firebaseConfig);
+
 class Firebase {
   constructor() {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
-
     this.fire = firebase;
     this.database = this.fire.database();
   }
