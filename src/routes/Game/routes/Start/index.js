@@ -29,25 +29,16 @@ const StartPage = () => {
     return () => firebase.offPokemonsSoket();
   }, []);
 
-  const handleActivateCard = (id) => { 
-    // todo: разобрать
-    setCardState(prevState => {
-      return Object.entries(prevState).reduce((acc, item) => {
-        const pokemon = {...item[1]};
-        if (pokemon.id === id) {
-          pokemon.active = !pokemon.active;
-          pokemon.isSelected = !pokemon.isSelected;
+  const handleChangeSelected = (key) => { 
+    setCardState(prevState => ({
+      ...prevState,
+      [key]: {
+        ...prevState[key],
+        selected: !prevState[key].selected
+      }
+    }))
 
-          // Добавляю карточки в выбранные
-          selectedCard.setPokemon([...selectedCard.pokemon, pokemon])
-        }
 
-        acc[item[0]] = pokemon;
-        firebase.postPokemon(item[0], pokemon);
-
-        return acc;
-      }, {});
-    })
   }
 
   return (
@@ -64,7 +55,7 @@ const StartPage = () => {
         <button onClick={handleClickStartGame}>Start game</button>
         <div className={cn(style.flex)}>
           {
-            Object.entries(cardState).map(([key, {name, img, id, type, values, active, isSelected}]) =>
+            Object.entries(cardState).map(([key, {name, img, id, type, values, selected}]) =>
             <PokemonCard 
               key={key} 
               id={id}
@@ -72,9 +63,9 @@ const StartPage = () => {
               type={type}
               img={img}
               values={values} 
-              handleActivateCard={handleActivateCard}
-              isActive={active}
-              isSelected={isSelected}
+              handleSelectCard={() => handleChangeSelected(key)}
+              isActive={true}
+              isSelected={selected}
             />)
           }
         </div>
