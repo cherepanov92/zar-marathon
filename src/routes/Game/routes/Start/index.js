@@ -50,34 +50,6 @@ const StartPage = () => {
     })
   }
 
-  const handleAddPikachuCard = () => { 
-    const new_card = {
-      "abilities" : [ "static", "lightning-rod" ],
-      "base_experience" : 112,
-      "height" : 4,
-      "id" : 1125,
-      "img" : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-      "name" : "pika-pikachu",
-      "stats" : {
-        "attack" : 55,
-        "defense" : 40,
-        "hp" : 35,
-        "special-attack" : 50,
-        "special-defense" : 50,
-        "speed" : 90
-      },
-      "type" : "electric",
-      "values" : {
-        "bottom" : 9,
-        "left" : 6,
-        "right" : "A",
-        "top" : 8
-      }
-    }
-
-    firebase.addPokemon(new_card);
-  }
-
   return (
     <>
       <Header title='This is game page !!!'> 
@@ -89,7 +61,6 @@ const StartPage = () => {
         colorBg='#74E1FF'
         urlBg={Bg3}
       >
-        <button onClick={handleAddPikachuCard}>Добавить Пикачу</button>
         <button onClick={handleClickStartGame}>Start game</button>
         <div className={cn(style.flex)}>
           {
