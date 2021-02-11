@@ -22,7 +22,11 @@ const StartPage = () => {
   const handleClickStartGame = () => history.push('/game/board');
 
   useEffect(() => {
-    firebase.getPokemonsSoket((cards) => {setCardState(cards)})
+    firebase.getPokemonsSoket((cards) => {
+      setCardState(cards)
+    });
+
+    return () => firebase.offPokemonsSoket();
   }, []);
 
   const handleActivateCard = (id) => { 

@@ -27,6 +27,10 @@ class Firebase {
     })
   }
 
+  offPokemonsSoket = () => {
+    this.database.ref('pokemons').off();
+  }
+
   // Единоразовый запрос данных
   getPokemonsOnce = async () => {
     return await this.database.ref('pokemons')
