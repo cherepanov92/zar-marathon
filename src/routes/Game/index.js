@@ -1,106 +1,42 @@
-import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import cn from 'classnames';
+import { useState } from 'react';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
-import database from '../../service/firebase';
-import Bg3 from '../../assets/bg3.jpg';
+import StartPage from './routes/Start';
+import BoardPage from './routes/Board';
+import FinishPage from './routes/Finish';
 
-import Header from '../../components/Header/Header';
-import Layout from '../../components/Layout/Layout';
-import PokemonCard from '../../components/PokemonCard/PokemonCard';
-
-import style from './style.module.css';
+import { PokemonContext } from '../../context/pokemonContext';
 
 const GamePage = () => {
-  const [cardState, setCardState] = useState({});
-  const history = useHistory();
-  const handleClick = () => history.push('/home');
+  const match = useRouteMatch();
+  const [selectedPokemons, setSelectedPokemons] = useState({});
 
-  useEffect(() => {
-    database.ref('pokemons')
-    .once('value', (snapshot) => {
-      setCardState(snapshot.val());
-    })
-  }, []);
-
-  const handleActivateCard = (card_key) => { 
-    const update_card = {...cardState[card_key], active: 'active' in cardState[card_key] ? !cardState[card_key].active : true }
-
-    database.ref(`pokemons/${card_key}`)
-    .set(update_card)
-    .then(setCardState(prevState => {
-      const newState = prevState;
-      newState[card_key] = update_card;
-      return {...newState}
-    }))
-  }
-
-  const handleAddPikachuCard = () => { 
-    const new_card = {
-      "abilities" : [ "static", "lightning-rod" ],
-      "base_experience" : 112,
-      "height" : 4,
-      "id" : 25,
-      "img" : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-      "name" : "pikachu",
-      "stats" : {
-        "attack" : 55,
-        "defense" : 40,
-        "hp" : 35,
-        "special-attack" : 50,
-        "special-defense" : 50,
-        "speed" : 90
-      },
-      "type" : "electric",
-      "values" : {
-        "bottom" : 9,
-        "left" : 6,
-        "right" : "A",
-        "top" : 8
+  const handleSelectedPokemons = (key, pokemons) => {
+    setSelectedPokemons(prevState => {
+      // Проверяем если пришедший ключ уже есть в объекте
+      if (prevState[key]) {
+        const copyState = {...prevState};
+        delete copyState[key];
+        return copyState;
       }
-    }
-
-    const newKey = database.ref().child('pokemons').push().key;
-
-    database.ref(`pokemons/${newKey}`)
-    .set(new_card)
-    .then(setCardState(prevState => {
-      const newState = prevState;
-      newState[newKey] = new_card;
-      return {...newState}
-    }))
+      return {
+        ...prevState,
+        [key]: pokemons
+      }
+    })
   }
 
   return (
-    <>
-      <Header title='This is game page !!!'> 
-        <button onClick={handleClick}>Go to Homepage</button>      
-      </Header>
-      <Layout 
-        id='1' 
-        title='Мои игровые карточки' 
-        colorBg='#74E1FF'
-        urlBg={Bg3}
-      >
-        <button onClick={handleAddPikachuCard}>Добавить Пикачу</button>
-        <div className={cn(style.flex)}>
-          {
-            Object.entries(cardState).map(([key, {name, img, id, type, values, active}]) =>
-            <PokemonCard 
-              key={key} 
-              card_key={key} 
-              id={id}
-              name={name}
-              type={type}
-              img={img}
-              values={values} 
-              handleActivateCard={handleActivateCard}
-              isActive={active}
-            />)
-          }
-        </div>
-      </Layout>
-    </>
+    <PokemonContext.Provider value={{
+      pokemons: selectedPokemons, 
+      onSelectedPokemons: handleSelectedPokemons
+    }}>
+      <Switch>
+        <Route path={`${match.path}/`} exact component={StartPage} />
+        <Route path={`${match.path}/board`} component={BoardPage} />
+        <Route path={`${match.path}/finish`} component={FinishPage} />
+      </Switch>
+    </PokemonContext.Provider>
   );
 };
 
