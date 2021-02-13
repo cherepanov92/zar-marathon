@@ -71,6 +71,7 @@ const StartPage = () => {
               }}
               isActive={true}
               isSelected={selected}
+              className={style.card}
             />)
           }
         </div>
