@@ -7,15 +7,16 @@ import s from './style.module.css';
 
 const BoardPage = () => {
 
-    const selectedCard = useContext(PokemonContext);
+    const {pokemons} = useContext(PokemonContext);
+    console.log(pokemons)
 
     return (
         <div className={s.root}>
 						<div className={s.playerOne}>
                         {
-                            Object.entries(selectedCard.pokemon).map(([key, {name, img, id, type, values}]) =>
+                            Object.values(pokemons).map(({name, img, id, type, values}) =>
                             <PokemonCard 
-                                key={key} 
+                                key={id} 
                                 id={id}
                                 name={name}
                                 type={type}

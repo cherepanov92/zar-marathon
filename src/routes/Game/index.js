@@ -11,7 +11,7 @@ const GamePage = () => {
   const match = useRouteMatch();
   const [selectedPokemons, setSelectedPokemons] = useState({});
 
-  const handleSelectedPokemons = (key, pokemon) => {
+  const handleSelectedPokemons = (key, pokemons) => {
     setSelectedPokemons(prevState => {
       // Проверяем если пришедший ключ уже есть в объекте
       if (prevState[key]) {
@@ -21,14 +21,14 @@ const GamePage = () => {
       }
       return {
         ...prevState,
-        [key]: pokemon
+        [key]: pokemons
       }
     })
   }
 
   return (
     <PokemonContext.Provider value={{
-      pokemon: selectedPokemons, 
+      pokemons: selectedPokemons, 
       onSelectedPokemons: handleSelectedPokemons
     }}>
       <Switch>
