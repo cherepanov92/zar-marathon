@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import { PokemonContext } from '../../../../context/pokemonContext';
 import PokemonCard from '../../../../components/PokemonCard/PokemonCard';
+import PlayerBoard from '../../../../components/PlayerBoard';
 
 import s from './style.module.css';
 
@@ -10,6 +11,7 @@ const BoardPage = () => {
     const history = useHistory();
     const {pokemons} = useContext(PokemonContext);
     const [board, setBoard] = useState([]);
+    const [choiceCard, setChoiceCard] = useState(null);
     const [playerTwoState, setPlayerTwoState] = useState([]);
 
     if (!Object.keys(pokemons).length) {
@@ -28,41 +30,23 @@ const BoardPage = () => {
     },[])
 
     const handlerClickBoardPlate = (position) => {
-        console.log(position);
+        console.log('position', position);
+        console.log('choiceCard', choiceCard);
     }
 
     return (
         <div className={s.root}>
 						<div className={s.playerOne}>
-                        {
-                            Object.values(pokemons).map(({name, img, id, type, values}) =>
-                            <PokemonCard 
-                                key={id} 
-                                id={id}
-                                name={name}
-                                type={type}
-                                img={img}
-                                values={values} 
-                                minimize
-                                className={s.card}
-                            />)
-                        }
+                            <PlayerBoard 
+                                cards={Object.values(pokemons)} 
+                                onClickCard={(card) => setChoiceCard(card)}
+                            />
 						</div>
                         <div className={s.playerTwo}>
-                        {
-                            playerTwoState.map(({name, img, id, type, values}) =>
-                                <PokemonCard 
-                                    key={id} 
-                                    id={id}
-                                    name={name}
-                                    type={type}
-                                    img={img}
-                                    values={values} 
-                                    minimize
-                                    className={s.card}
-                                />
-                            )
-                        }
+                            <PlayerBoard 
+                                cards={playerTwoState} 
+                                onClickCard={(card) => setChoiceCard(card)}
+                            />
 						</div>
             <div className={s.board}>
                 {
