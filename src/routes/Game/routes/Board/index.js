@@ -24,12 +24,12 @@ const counterWin = (board, playerOneState, playerTwoState) => {
 
 const BoardPage = () => {
     const history = useHistory();
-    const {pokemons} = useContext(PokemonContext);
+    const { pokemonSetPlayer1, onSelectedPokemonsP2, onSetWinner } = useContext(PokemonContext);
 
     const [board, setBoard] = useState([]);
     const [choiceCard, setChoiceCard] = useState(null);
     const [playerOneState, setPlayerOneState] = useState(() => {
-        return Object.values(pokemons).map(item => ({
+        return Object.values(pokemonSetPlayer1).map(item => ({
             ...item,
             possession: 'blue',
         }))
@@ -37,7 +37,7 @@ const BoardPage = () => {
     const [playerTwoState, setPlayerTwoState] = useState([]);
     const [steps, setSteps] = useState(0);
 
-    if (!Object.keys(pokemons).length) {
+    if (!Object.keys(pokemonSetPlayer1).length) {
         history.replace('/game');
     }
 
@@ -52,6 +52,8 @@ const BoardPage = () => {
             ...item,
             possession: 'red',
         })))
+
+        onSelectedPokemonsP2(playerTwoResponse.data);
     },[])
 
     useEffect(() => {
@@ -59,12 +61,16 @@ const BoardPage = () => {
             const [count1, count2] = counterWin(board, playerOneState, playerTwoState)
         
             if (count1 > count2) {
+                onSetWinner(1);
                 alert('win');
             } else if (count1 < count2){
+                onSetWinner(2);
                 alert('lose');
             } else {
+                onSetWinner(3);
                 alert('draw');
             }
+            history.replace('/game/finish');
         }
 
     }, [steps])

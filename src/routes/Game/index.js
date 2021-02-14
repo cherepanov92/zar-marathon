@@ -9,10 +9,12 @@ import { PokemonContext } from '../../context/pokemonContext';
 
 const GamePage = () => {
   const match = useRouteMatch();
-  const [selectedPokemons, setSelectedPokemons] = useState({});
+  const [selectedPokemonsP1, setSelectedPokemonsP1] = useState({});
+  const [selectedPokemonsP2, setSelectedPokemonsP2] = useState({});
+  const [winner, setWinner] = useState(null);
 
   const handleSelectedPokemons = (key, pokemons) => {
-    setSelectedPokemons(prevState => {
+    setSelectedPokemonsP1(prevState => {
       // Проверяем если пришедший ключ уже есть в объекте
       if (prevState[key]) {
         const copyState = {...prevState};
@@ -28,8 +30,12 @@ const GamePage = () => {
 
   return (
     <PokemonContext.Provider value={{
-      pokemons: selectedPokemons, 
-      onSelectedPokemons: handleSelectedPokemons
+      pokemonSetPlayer1: selectedPokemonsP1, 
+      pokemonSetPlayer2: selectedPokemonsP2, 
+      winner,
+      onSelectedPokemonsP1: handleSelectedPokemons,
+      onSelectedPokemonsP2: ((set) => setSelectedPokemonsP2(set)),
+      onSetWinner: ((winner) => setWinner(winner)),
     }}>
       <Switch>
         <Route path={`${match.path}/`} exact component={StartPage} />
