@@ -10,7 +10,7 @@ import { PokemonContext } from '../../context/pokemonContext';
 const GamePage = () => {
   const match = useRouteMatch();
   const [selectedPokemonsP1, setSelectedPokemonsP1] = useState({});
-  const [selectedPokemonsP2, setSelectedPokemonsP2] = useState({});
+  const [selectedPokemonsP2, setSelectedPokemonsP2] = useState([]);
   const [winner, setWinner] = useState(null);
 
   const handleSelectedPokemons = (key, pokemons) => {
