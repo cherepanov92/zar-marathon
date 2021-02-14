@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { PokemonContext } from '../../../../context/pokemonContext';
@@ -9,9 +9,21 @@ import s from './style.module.css';
 const BoardPage = () => {
     const history = useHistory();
     const {pokemons} = useContext(PokemonContext);
+    const [board, setBoard] = useState([])
 
     if (!Object.keys(pokemons).length) {
         history.replace('/game');
+    }
+
+    useEffect(async () => {
+        const boardResponse = await fetch('https://reactmarathon-api.netlify.app/api/board');
+        const boardRequest = await boardResponse.json();
+
+        setBoard(boardRequest.data);
+    },[])
+
+    const handlerClickBoardPlate = (position) => {
+        console.log(position);
     }
 
     return (
@@ -32,15 +44,17 @@ const BoardPage = () => {
                         }
 						</div>
             <div className={s.board}>
-                <div className={s.boardPlate}>1</div>
-                <div className={s.boardPlate}>2</div>
-                <div className={s.boardPlate}>3</div>
-                <div className={s.boardPlate}>4</div>
-                <div className={s.boardPlate}>5</div>
-                <div className={s.boardPlate}>6</div>
-                <div className={s.boardPlate}>7</div>
-                <div className={s.boardPlate}>8</div>
-                <div className={s.boardPlate}>9</div>
+                {
+                    board.map(item => <div
+                        key={item.position}
+                        className={s.boardPlate}
+                        onClick={() => !item.card && handlerClickBoardPlate(item.position)}
+                    >
+                        {
+                            item.card && <PokemonCard {...item} minimize />
+                        }
+                    </div>)
+                }
             </div>
         </div>
     );
