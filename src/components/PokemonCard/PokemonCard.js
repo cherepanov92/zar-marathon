@@ -16,8 +16,7 @@ const PokemonCard = ({id, name, type, img, values, minimize, className, possessi
       <div className={cn(style.cardFront)}>
         <div className={cn(style.wrap, style.front)}>
           <div 
-            className={cn(style.pokemon, style[type])}
-            style={{backgroundColor: possession}}
+            className={cn(style.pokemon, style[type], style[possession])}
           >
 
             <div className={cn(style.values)}>
