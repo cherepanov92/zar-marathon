@@ -5,9 +5,8 @@ import PokemonCard from '../PokemonCard/PokemonCard';
 import style from './style.module.css';
 
 
-const PlayerBoard = ({ cards, onClickCard }) => {
+const PlayerBoard = ({ player, cards, onClickCard }) => {
   const [isSelected, setIsSelected] = useState(null);
-
 
   return (
     <>
@@ -25,7 +24,10 @@ const PlayerBoard = ({ cards, onClickCard }) => {
             className={cn(style.cardBoard, {[style.selected] : isSelected === item.id})}
             handleSelectCard = {() => {
               setIsSelected(item.id)
-              onClickCard && onClickCard(item)
+              onClickCard && onClickCard({
+                player,
+                ...item
+              })
             }}
           />
         ))
