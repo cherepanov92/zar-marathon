@@ -7,6 +7,21 @@ import PlayerBoard from '../../../../components/PlayerBoard';
 
 import s from './style.module.css';
 
+const counterWin = (board, playerOneState, playerTwoState) => {
+    let playerOneCount = playerOneState.length;
+    let playerTwoCount = playerTwoState.length;
+
+    board.forEach(item => {
+        if(item.card.possession === 'red') {
+            playerTwoCount++; 
+        } else if (item.card.possession === 'blue') {
+            playerOneCount++;
+        }
+    })
+
+    return [playerOneCount, playerTwoCount];
+}
+
 const BoardPage = () => {
     const history = useHistory();
     const {pokemons} = useContext(PokemonContext);
@@ -20,6 +35,7 @@ const BoardPage = () => {
         }))
     });
     const [playerTwoState, setPlayerTwoState] = useState([]);
+    const [steps, setSteps] = useState(0);
 
     if (!Object.keys(pokemons).length) {
         history.replace('/game');
@@ -38,9 +54,22 @@ const BoardPage = () => {
         })))
     },[])
 
+    useEffect(() => {
+        if(steps === 9) {
+            const [count1, count2] = counterWin(board, playerOneState, playerTwoState)
+        
+            if (count1 > count2) {
+                alert('win');
+            } else if (count1 < count2){
+                alert('lose');
+            } else {
+                alert('draw');
+            }
+        }
+
+    }, [steps])
+
     const handlerClickBoardPlate = async (position) => {
-        console.log('position', position);
-        console.log('choiceCard', choiceCard);
         if (choiceCard) {
             const params = {
                 position,
@@ -57,7 +86,17 @@ const BoardPage = () => {
             });
 
             const response = await request.json();
+            
+            if(choiceCard.player === 1) {
+                setPlayerOneState(prevState => prevState.filter(card => card.id !== choiceCard.id))
+            }
+            
+            if(choiceCard.player === 2) {
+                setPlayerTwoState(prevState => prevState.filter(card => card.id !== choiceCard.id))
+            }
+            
             setBoard(response.data);
+            setSteps(prevState => (prevState + 1))
         }
     }
 
