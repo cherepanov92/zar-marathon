@@ -31,7 +31,7 @@ const StartPage = () => {
 
   const handleChangeSelected = (key) => { 
     const pokemons = {...cardState[key]};
-    selectedCard.onSelectedPokemons(key, pokemons);
+    selectedCard.onSelectedPokemonsP1(key, pokemons);
 
     setCardState(prevState => ({
       ...prevState,
@@ -65,7 +65,7 @@ const StartPage = () => {
               img={img}
               values={values} 
               handleSelectCard={() => {
-                if (Object.keys(selectedCard.pokemons).length < 5 || selected) {
+                if (Object.keys(selectedCard.pokemonSetPlayer1).length < 5 || selected) {
                   handleChangeSelected(key)
                 }
               }}
