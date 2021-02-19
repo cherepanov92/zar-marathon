@@ -1,20 +1,23 @@
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import cn from 'classnames';
 
 import style from './style.module.css';
 
 import Header from '../../components/Header/Header';
 import Layout from '../../components/Layout/Layout';
-
-import Bg1 from '../../assets/bg1.jpg';
-import Bg2 from '../../assets/bg2.jpg';
 import Bg3 from '../../assets/bg3.jpg';
+import { plusAction } from '../../store/counter';
 
 function HomePage() {
   const history = useHistory();
+  const count = useSelector((state)=> state.value);
+  const dispatch = useDispatch();
   const handleClick = () => {
-    history.push("/game");
+    // history.push("/game");
+    dispatch(plusAction(1));
   }
+  console.log(count);
 
   return (
     <>
