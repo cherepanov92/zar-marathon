@@ -7,11 +7,11 @@ import style from './style.module.css';
 import Header from '../../components/Header/Header';
 import Layout from '../../components/Layout/Layout';
 import Bg3 from '../../assets/bg3.jpg';
-import { plusAction } from '../../store/counter';
+import { plusAction, selectCount } from '../../store/counter';
 
 function HomePage() {
   const history = useHistory();
-  const count = useSelector((state)=> state.value);
+  const count = useSelector(selectCount);
   const dispatch = useDispatch();
   const handleClick = () => {
     // history.push("/game");
