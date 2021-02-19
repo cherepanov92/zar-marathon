@@ -1,21 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import { BrowserRouter } from 'react-router-dom';
-// import store from 'react-redux';
+
+import App from './App';
 
 import './index.css';
-import App from './App';
-import { createStore } from 'redux';
-
-import rootReducer, {plusAction} from './store/counter';
+import { createStore, bindActionCreators } from 'redux';
+import rootReducer, * as actions from './store/counter';
 
 const store = new createStore(rootReducer);
 console.log('store', store)
 console.log('store getState', store.getState())
 store.subscribe(() => console.log('subscribe',store.getState()))
 
-store.dispatch(plusAction(10));
-
+const { plusAction, minusAction } = bindActionCreators(actions, store.dispatch);
+plusAction(1)
+minusAction(3)
 
 ReactDOM.render(
   <BrowserRouter>
